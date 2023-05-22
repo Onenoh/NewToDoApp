@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static NewToDoApp.Validations;
 
@@ -117,33 +118,33 @@ namespace NewToDoApp
                                 Console.ResetColor();
                             }
                                 Console.WriteLine();
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Passwords do not match.");
-                                Console.ResetColor();
-
-                                Console.WriteLine();
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Registration successful.");
                                 Console.ResetColor();
+                                Thread.Sleep(1000);
+                                Console.Clear();
 
                                 users.Add(user);
                                 currentUser = user;
+                               
                         }
                         else
                         {
-
-                            break;
+                                Console.WriteLine();
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Passwords do not match.");
+                                Console.ResetColor();     
                         }
 
-                       
-                      
-                      }
+                            break;
+
+                        }
                     }
                     else if (command == 2)
                     {
                         LoginMethod.Login(users);
 
-                        continue;
+                       // continue;
                     }
                     else if (command == 3)
                     {

@@ -6,6 +6,7 @@ using System.Text;
 using static NewToDoApp.Validations;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Reflection.Metadata;
 
 namespace NewToDoApp
 {
@@ -22,11 +23,12 @@ namespace NewToDoApp
                     if (users.Count > 0)
                     {
                         Thread.Sleep(1000);
+                        UI.HeaderDisplay();
                         Console.WriteLine();
                         Console.WriteLine($"Welcome {currentUser.Name}.");
                         Console.WriteLine();
                     }
-
+                    
                     Console.WriteLine("1.   Add task");
                     Console.WriteLine("2.   Complete task");
                     Console.WriteLine("3.   Edit Title");
@@ -108,7 +110,7 @@ namespace NewToDoApp
             }
         }
 
-        public static void AddTask(List<Task> Task, List<User> users)
+        public static void AddTask(List<Task> task, List<User> users)
         {
             Task tasks = new Task();
             User userS = users.FirstOrDefault();
@@ -170,14 +172,16 @@ namespace NewToDoApp
             }
             tasks.Priority = Priority;
 
-            userS.Task.Add(tasks);
-            
+            //userS.Task.Add(tasks);
+            task.Add(tasks);
             tasks.UserId = userS.Id;
 
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Task added successfully!");
             Console.ResetColor();
+            Thread.Sleep(2000);
+            Console.Clear();
         }
 
         public static void CompleteTask(List<Task> task)
