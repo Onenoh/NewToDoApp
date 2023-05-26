@@ -44,21 +44,25 @@ namespace NewToDoApp
                     if (choice == 1)
                     {
                         AddTask(task, users);
+                        //break;
                     }
 
                     else if (choice == 2)
                     {
                         CompleteTask(task);
+                        //break;
                     }
 
                     else if (choice == 3)
                     {
                         EditTitle(task);
+                        //break;
                     }
 
                     else if (choice == 4)
                     {
                         EditDescription(task);
+                       // break;
                     }
 
                     else if (choice == 5)
@@ -103,9 +107,9 @@ namespace NewToDoApp
                 catch (Exception)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("An error occurred: Please enter a valid input" );
+                    Console.WriteLine("An error occurred: Please enter a valid input");
                     Console.ResetColor();
-                    continue;
+                    break;
                 }
             }
         }
@@ -116,59 +120,72 @@ namespace NewToDoApp
             User userS = users.FirstOrDefault();
             users.Add(userS);
 
-            Console.Write("Enter task title: ");
-            tasks.Title = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(tasks.Title))
+            while (true)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Invalid input. Please enter a non-empty title.");
-                Console.ResetColor();
-                return;
+                Console.Write("Enter task title: ");
+                tasks.Title = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(tasks.Title))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid input. Please enter a non-empty title.");
+                    Console.ResetColor();
+                    continue;
+                }
+                break;
+            }
+            while (true)
+            {
+                Console.Write("Enter task description: ");
+                tasks.Description = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(tasks.Description))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid input. Please enter a non-empty description.");
+                    Console.ResetColor();
+                    continue;
+                }
+                break;
             }
 
-            Console.Write("Enter task description: ");
-            tasks.Description = Console.ReadLine();
-
-            if (string.IsNullOrEmpty(tasks.Description))
+            while (true)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Invalid input. Please enter a non-empty description.");
-                Console.ResetColor();
-                return;
+                Console.Write("Enter task due date (MM/dd/yyyy): ");
+                string firstDueDate = Console.ReadLine();
+
+                if (!DateTime.TryParse(firstDueDate, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dueDate))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Date not valid. Please enter a date in the format MM/dd/yyyy.");
+                    Console.ResetColor();
+                    continue;
+                }
+
+                if (dueDate < DateTime.Today)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Due date must be a future date.");
+                    Console.ResetColor();
+                    continue;
+                }
+
+                tasks.DueDate = dueDate;
+                break;
             }
 
-            Console.Write("Enter task due date (MM/dd/yyyy): ");
-            string firstDueDate = Console.ReadLine();
-
-            if (!DateTime.TryParse(firstDueDate, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dueDate))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Date not valid. Please enter a date in the format MM/dd/yyyy.");
-                Console.ResetColor();
-                return;
-            }
-
-            if (dueDate < DateTime.Today)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Due date must be a future date.");
-                Console.ResetColor();
-                return;
-            }
-
-            tasks.DueDate = dueDate;
-
+          while(true)
+          {
             Console.Write("Enter task priority (Low, Medium, High): ");
-            Priority.PriorityLevel Priority = (Priority.PriorityLevel)Enum.Parse(typeof(Priority.PriorityLevel), Console.ReadLine(), true);
+            Priority.PriorityLevel Priority = (Priority.PriorityLevel)Enum.Parse(typeof(Priority.PriorityLevel), Console.ReadLine().ToString(), true);
 
-
-            if (!Validation.ValidateEnumValue(Priority))
+            if (!Validation.ValidateEnumValue(Priority) || string.IsNullOrWhiteSpace(Priority.ToString()))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid priority. Please enter 'Low', 'Medium', or 'High'.");
                 Console.ResetColor();
-                return;
+                break;
             }
             tasks.Priority = Priority;
 
@@ -182,6 +199,7 @@ namespace NewToDoApp
             Console.ResetColor();
             Thread.Sleep(2000);
             Console.Clear();
+          }
         }
 
         public static void CompleteTask(List<Task> task)

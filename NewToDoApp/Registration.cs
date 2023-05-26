@@ -133,12 +133,13 @@ namespace NewToDoApp
                                 Console.WriteLine();
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("Passwords do not match.");
-                                Console.ResetColor();     
+                                Console.ResetColor();
+                                continue;
                         }
 
                             break;
 
-                        }
+                      }
                     }
                     else if (command == 2)
                     {
@@ -191,6 +192,7 @@ namespace NewToDoApp
                 catch (Exception ex)
                 {
                     Console.WriteLine("An error occurred: " + ex.Message);
+                    break;
                 }
             }
         }

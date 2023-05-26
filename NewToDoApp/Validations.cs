@@ -53,8 +53,9 @@ namespace NewToDoApp
 
             public static bool ValidateEnumValue(Priority.PriorityLevel priority)
             {
-                return Enum.IsDefined(typeof(Priority.PriorityLevel), priority);
-
+                //if (string.IsNullOrWhiteSpace(priority.ToString()))
+                //    return false;
+                return Enum.IsDefined(typeof(Priority.PriorityLevel), priority.ToString());
             }
 
             public static string ReadPassword()
