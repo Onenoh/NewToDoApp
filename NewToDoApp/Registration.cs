@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using static NewToDoApp.Validations;
 namespace NewToDoApp
 {
     internal class Registration
-    {
+    { 
 
         public static void UserRegistration(List<Task> task, List<User> users)
         {
@@ -126,8 +127,10 @@ namespace NewToDoApp
 
                                 users.Add(user);
                                 currentUser = user;
-                               
-                        }
+                            currentUser.Id = users.Where(u => user.Email == user.Email &&
+                            user.Password == user.Password).Select(user => user.Id).FirstOrDefault();
+
+                            }
                         else
                         {
                                 Console.WriteLine();
@@ -145,7 +148,6 @@ namespace NewToDoApp
                     {
                         LoginMethod.Login(users);
 
-                       // continue;
                     }
                     else if (command == 3)
                     {

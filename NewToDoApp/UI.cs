@@ -25,9 +25,10 @@ namespace NewToDoApp
             PrintLine();
             PrintRow("ID", "Title", "Description", "Due Date", "Priority", "Complete");
             PrintLine();
+           
             foreach (Task tasks in task)
             {
-                if (tasks.UserId == currentUser.Id && currentUser.IsNewUser)
+                if (tasks.UserId == currentUser.Id)
                 {
                     PrintRow(tasks.Id.ToString(), tasks.Title,
                     tasks.Description, tasks.DueDate.ToString("MM/dd/yyyy hh:mm tt"), tasks.Priority.ToString(),

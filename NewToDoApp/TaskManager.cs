@@ -7,6 +7,7 @@ using static NewToDoApp.Validations;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Reflection.Metadata;
+using System.Net.Mail;
 
 namespace NewToDoApp
 {
@@ -117,8 +118,8 @@ namespace NewToDoApp
         public static void AddTask(List<Task> task, List<User> users)
         {
             Task tasks = new Task();
-            User userS = users.FirstOrDefault();
-            users.Add(userS);
+            User currentUser = users.FirstOrDefault();
+            users.Add(currentUser);
 
 
             while (true)
@@ -185,20 +186,21 @@ namespace NewToDoApp
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invalid priority. Please enter 'Low', 'Medium', or 'High'.");
                 Console.ResetColor();
-                break;
+                continue;
             }
             tasks.Priority = Priority;
 
             //userS.Task.Add(tasks);
             task.Add(tasks);
-            tasks.UserId = userS.Id;
+            tasks.UserId = currentUser.Id;
 
-            Console.WriteLine();
+                Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Task added successfully!");
             Console.ResetColor();
             Thread.Sleep(2000);
             Console.Clear();
+                break;
           }
         }
 

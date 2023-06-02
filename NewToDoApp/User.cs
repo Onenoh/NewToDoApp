@@ -10,7 +10,6 @@ namespace NewToDoApp
         public string Name { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public bool IsNewUser { get; set; } = true;
         public List<Task> Task { get; set; } = new List<Task>();
     }
 }

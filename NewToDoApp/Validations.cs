@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace NewToDoApp
 {
@@ -10,15 +11,22 @@ namespace NewToDoApp
         {
             public static bool IsValidEmail(string email)
             {
-                try
-                {
-                    var addr = new System.Net.Mail.MailAddress(email);
-                    return addr.Address == email;
-                }
-                catch
-                {
-                    return false;
-                }
+                string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+
+                Regex regex = new Regex(pattern);
+
+                Match match = regex.Match(email);
+
+                return match.Success;
+                //try
+                //{
+                //    var addr = new System.Net.Mail.MailAddress(email);
+                //    return addr.Address == email;
+                //}
+                //catch
+                //{
+                //    return false;
+                //}
             }
 
             public static bool IsValidPassword(string password)
